@@ -14,30 +14,27 @@
     @endif
     <br><br>
     <table class="table table-bordered">
-        <thead>
+        <thead> 
+                <th>ID</th>
                 <th>Cedula Paciente</th>
                 <th>Numero de registro</th>
                 <th>Numero de Cama</th>
                 <th>Nombre</th>
-                <th>Direccion</th>
-                <th>Fecha de nacimiento</th>
-                <th>Sexo</th>
                 <th>Opciones</th>
         </thead>
         <tbody>
             @foreach ($pacientes as $paciente)
                 <tr>
+                    <td>{{$paciente->id}}</td>
                     <td>{{$paciente->cedulap}}</td>
                     <td>{{$paciente->numeroregistro}}</td>
                     <td>{{$paciente->numerocama}}</td>
                     <td>{{$paciente->nombre}}</td>
-                    <td>{{$paciente->direccion}}</td>
-                    <td>{{$paciente->fechanacimiento}}</td>
-                    <td>{{$paciente->sexo}}</td>
                     <td>
                     <form action="{{route('paciente.destroy',$paciente->id)}}" method="post">
-                    <a href="{{route('diagnostico.show',$paciente->id)}}" class="btn btn-info">Ver Diagnostico</a>
+                    <a href="{{route('paciente.show',$paciente->id)}}" class="btn btn-info">Ver Diagnostico</a>
                     <a href="{{route('paciente.edit',$paciente->id)}}" class="btn btn-primary">Editar</a>
+                    <a href="{{route('diagnostico.edit',$paciente->id)}}" class="btn btn-primary">Editar Diagnostico</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Eliminar</button>

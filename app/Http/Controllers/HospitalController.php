@@ -14,7 +14,8 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        return view('hospital.index');
+        $hospitals = App\Hospital::orderby('nombre','asc')->get();
+        return view('hospital.index',compact('hospitals'));
     }
     
     /**
@@ -34,7 +35,18 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'cantidadc' => 'required'
+        ]);
+
+        App\Hospital::create($request->all());
+
+        return redirect()->route('hospital.index')
+                        ->with('exito','Hospital Creado correctamente!');
     }
 
     /**
@@ -43,9 +55,11 @@ class HospitalController extends Controller
      * @param  \App\Hospital  $hospital
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('hospital.showw');
+        $medico = App\Medico::findorfail($id);
+        $hospital = App\Hospital::findorfail($id);
+        return view('hospital.view', compact('hospital','medico'));
     }
 
     /**
@@ -54,9 +68,10 @@ class HospitalController extends Controller
      * @param  \App\Hospital  $hospital
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hospital $hospital)
+    public function edit($id)
     {
-        //
+        $hospital = App\Hospital::findorfail($id);
+        return view('hospital.edit', compact('hospital'));
     }
 
     /**
@@ -66,9 +81,20 @@ class HospitalController extends Controller
      * @param  \App\Hospital  $hospital
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hospital $hospital)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'cantidadc' => 'required'
+        ]);
+
+        $hospital = App\Hospital::findorfail($id);
+        $hospital->update($request->all());
+
+        return redirect()->route('hospital.index')
+                         ->with('exito','Hospital modificado con exito!');
     }
 
     /**
@@ -77,8 +103,13 @@ class HospitalController extends Controller
      * @param  \App\Hospital  $hospital
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hospital $hospital)
+    public function destroy($id)
     {
-        //
+        $hospital = App\Hospital::findorfail($id);
+
+        $hospital->delete();
+
+        return redirect()->route('hospital.index')
+                         ->with('exito','Hospital eliminado correctamente!');
     }
 }

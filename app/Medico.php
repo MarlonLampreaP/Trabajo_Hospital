@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medico extends Model
 {
-    protected $fillable = ['cedulam','nombre','especialidad'];
+    protected $fillable = ['cedulam','nombrem','especialidad','idhospital'];
 }

@@ -56,8 +56,9 @@ class PacienteController extends Controller
      */
     public function show($id)
     {
-        $paciente = App\Paciente::findorfail($id); 
-        return view('paciente.view', compact('paciente'));
+        $paciente = App\Paciente::findorfail($id);
+        $diagnosticos = App\Diagnostico::findorfail($id); 
+        return view('paciente.view', compact('paciente','diagnosticos'));
     }
 
     /**

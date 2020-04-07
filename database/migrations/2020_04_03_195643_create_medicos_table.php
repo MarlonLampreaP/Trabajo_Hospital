@@ -16,9 +16,9 @@ class CreateMedicosTable extends Migration
         Schema::create('medicos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('cedulam');
-            $table->string('nombre');
+            $table->string('nombrem');
             $table->string('especialidad');
-            $table->bigInteger('idHospital')->unsigned();
+            $table->bigInteger('idhospital')->unsigned();
             $table->foreign('idHospital')->references('id')->on('hospitals');
             $table->timestamps();
         });

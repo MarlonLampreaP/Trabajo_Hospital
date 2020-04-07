@@ -14,7 +14,8 @@ class ConsultaController extends Controller
      */
     public function index()
     {
-        return view('consulta.index');
+        $consultas = App\Consulta::orderby('fechac','asc')->get();
+        return view('consulta.index',compact('consultas'));
     }
 
     /**
@@ -24,7 +25,9 @@ class ConsultaController extends Controller
      */
     public function create()
     {
-        return view('consulta.insert');
+        $pacientes = App\Paciente::orderby('nombre','asc')->get();
+        $medicos = App\Medico::orderby('nombrem','asc')->get();
+        return view('consulta.insert', compact('pacientes','medicos'));
     }
 
     /**
@@ -35,7 +38,17 @@ class ConsultaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'fechac' => 'required',
+            'idMedico' => 'required',
+            'idPaciente' => 'required'
+        ]);
+
+        App\Consulta::create($request->all());
+
+        return redirect()->route('consulta.index')
+                        ->with('exito','Consulta creada correctamente!');
     }
 
     /**
@@ -44,9 +57,10 @@ class ConsultaController extends Controller
      * @param  \App\Consulta  $consulta
      * @return \Illuminate\Http\Response
      */
-    public function show(Consulta $consulta)
+    public function show($id)
     {
-        //
+        $consulta = App\Consulta::findorfail($id); 
+        return view('consulta.view', compact('consulta',));
     }
 
     /**
@@ -55,9 +69,10 @@ class ConsultaController extends Controller
      * @param  \App\Consulta  $consulta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consulta $consulta)
+    public function edit($id)
     {
-        //
+        $consulta = App\Consulta::findorfail($id);
+        return view('consulta.edit', compact('consulta'));
     }
 
     /**
@@ -67,9 +82,18 @@ class ConsultaController extends Controller
      * @param  \App\Consulta  $consulta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consulta $consulta)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'fechac' => 'required',
+            'idMedico' => 'required'
+        ]);
+
+        $consulta = App\Consulta::findorfail($id);
+        $consulta->update($request->all());
+
+        return redirect()->route('consulta.index')
+                         ->with('exito','Consulta modificada con exito!');
     }
 
     /**
@@ -78,8 +102,13 @@ class ConsultaController extends Controller
      * @param  \App\Consulta  $consulta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consulta $consulta)
+    public function destroy($id)
     {
-        //
+        $consulta = App\Consulta::findorfail($id);
+
+        $consulta->delete();
+
+        return redirect()->route('consulta.index')
+                         ->with('exito','Consulta eliminada correctamente!');
     }
 }

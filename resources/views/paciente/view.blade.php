@@ -63,6 +63,22 @@
                 <p class="lead">{{$paciente->sexo}}</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Tipo:</h3>
+        </div>
+            <div class="col-sm-3">
+                <p class="lead">{{$diagnosticos->tipo}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Complicaciones:</h3>
+        </div>
+            <div class="col-sm-3">
+                <p class="lead">{{$diagnosticos->complicaciones}}</p>
+        </div>
+    </div>
     <br><br>
     <div class="row">
     <a href="{{route('paciente.index')}}"><button class="btn btn-primary">Volver</button></a>
