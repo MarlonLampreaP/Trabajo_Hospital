@@ -14,7 +14,8 @@ class SalaController extends Controller
      */
     public function index()
     {
-        return view('sala.index');
+        $sala = App\Sala::orderby('nombre','asc')->get();
+        return view('sala.index',compact('sala'));
     }
 
     /**
@@ -35,7 +36,16 @@ class SalaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'nombre' => 'required',
+            'cantidadc' => 'required'
+        ]);
+
+        App\Sala::create($request->all());
+
+        return redirect()->route('sala.index')
+                        ->with('exito','Sala creado correctamente!');
     }
 
     /**
@@ -44,9 +54,10 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function show(Sala $sala)
+    public function show($id)
     {
-        //
+        $sala = App\Sala::findorfail($id); 
+        return view('sala.view', compact('sala',));
     }
 
     /**
@@ -55,9 +66,10 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sala $sala)
+    public function edit($id)
     {
-        //
+        $sala = App\Sala::findorfail($id);
+        return view('sala.edit', compact('sala'));
     }
 
     /**
@@ -67,9 +79,18 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sala $sala)
+    public function update(Request $request,$id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'cantidadc' => 'required'
+        ]);
+
+        $sala = App\Sala::findorfail($id);
+        $sala->update($request->all());
+
+        return redirect()->route('sala.index')
+                         ->with('exito','Sala modificada con exito!');
     }
 
     /**
@@ -78,8 +99,13 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sala $sala)
+    public function destroy($id)
     {
-        //
+        $sala = App\Sala::findorfail($id);
+
+        $sala->delete();
+
+        return redirect()->route('sala.index')
+                         ->with('exito','Sala eliminada correctamente!');
     }
 }

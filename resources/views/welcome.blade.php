@@ -90,7 +90,6 @@
                 <a href="{{route('medico.index')}}">Medico</a>
                 <a href="{{route('paciente.index')}}">Paciente</a>
                 <a href="{{route('laboratorio.index')}}">Laboratorio</a>
-                <a href="{{route('sala.index')}}">Salas</a>
                 </div>
             </div>
         </div>

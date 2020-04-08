@@ -14,7 +14,8 @@ class LaboratorioController extends Controller
      */
     public function index()
     {
-        return view('laboratorio.index');
+        $laboratorios = App\Laboratorio::orderby('nombre','asc')->get();
+        return view('laboratorio.index',compact('laboratorios'));
     }
 
     /**
@@ -35,7 +36,17 @@ class LaboratorioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required'
+        ]);
+
+        App\Laboratorio::create($request->all());
+
+        return redirect()->route('laboratorio.index')
+                        ->with('exito','Laboratorio creado correctamente!');
     }
 
     /**
@@ -44,9 +55,10 @@ class LaboratorioController extends Controller
      * @param  \App\Laboratorio  $laboratorio
      * @return \Illuminate\Http\Response
      */
-    public function show(Laboratorio $laboratorio)
+    public function show($id)
     {
-        //
+        $laboratorio = App\Laboratorio::findorfail($id); 
+        return view('laboratorio.view', compact('laboratorio',));
     }
 
     /**
@@ -55,9 +67,10 @@ class LaboratorioController extends Controller
      * @param  \App\Laboratorio  $laboratorio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Laboratorio $laboratorio)
+    public function edit($id)
     {
-        //
+        $laboratorio = App\Laboratorio::findorfail($id);
+        return view('laboratorio.edit', compact('laboratorio'));
     }
 
     /**
@@ -67,9 +80,19 @@ class LaboratorioController extends Controller
      * @param  \App\Laboratorio  $laboratorio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laboratorio $laboratorio)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required'
+        ]);
+
+        $laboratorio = App\Laboratorio::findorfail($id);
+        $laboratorio->update($request->all());
+
+        return redirect()->route('laboratorio.index')
+                         ->with('exito','Laboratorio modificado con exito!');
     }
 
     /**
@@ -78,8 +101,13 @@ class LaboratorioController extends Controller
      * @param  \App\Laboratorio  $laboratorio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laboratorio $laboratorio)
+    public function destroy($id)
     {
-        //
+        $laboratorio = App\Laboratorio::findorfail($id);
+
+        $laboratorio->delete();
+
+        return redirect()->route('laboratorio.index')
+                         ->with('exito','Laboratorio eliminado correctamente!');
     }
 }
