@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('inicio');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('Admin/users','Admin\UserController');
 Route::resource('consulta','ConsultaController');
 Route::resource('detalleh','DetallehController');
 Route::resource('diagnostico','DiagnosticoController');
