@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rol;
+use Gate;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class SalaController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('crear-sala'))
+        {
+            return redirect()->route('sala.index');
+        }    
         return view('sala.insert');
     }
 
@@ -68,6 +74,10 @@ class SalaController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-sala'))
+        {
+            return redirect()->route('sala.index');
+        } 
         $sala = App\Sala::findorfail($id);
         return view('sala.edit', compact('sala'));
     }
@@ -101,6 +111,10 @@ class SalaController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-sala'))
+        {
+            return redirect()->route('sala.index');
+        } 
         $sala = App\Sala::findorfail($id);
 
         $sala->delete();

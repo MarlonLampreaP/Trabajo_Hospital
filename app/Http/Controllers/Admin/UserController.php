@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Rol;
+use Gate;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,18 +27,6 @@ class UserController extends Controller
         $usuarios = User::all();
         return view('admin.users.index',compact('usuarios'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -45,7 +35,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if (Gate::denies('editar-usuario'))
+        {
+            return redirect()->route('users.index');
+        }    
+        $roles = Rol::all();
+        return view('admin.users.edit', compact('roles','user'));
     }
 
     /**
@@ -57,7 +52,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->roles()->sync($request->rol);
+        return redirect()->route('users.index');
     }
 
     /**
@@ -68,6 +64,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if (Gate::denies('eliminar-usuario'))
+        {
+            return redirect()->route('users.index');
+        }  
+        $user->roles()->detach();
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }

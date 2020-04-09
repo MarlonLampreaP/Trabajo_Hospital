@@ -43,5 +43,5 @@
     <br>
 <div class="row">
     <a href="{{route('medico.create')}}"><button class="btn btn-success">Registrar Medico</button></a>
-    <a href="{{route('home')}}"><button class="btn btn-primary">Volver</button></a>
+    <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

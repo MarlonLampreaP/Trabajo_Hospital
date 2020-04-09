@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Gate;
+use App\Rol;
+use App\Users;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class LaboratorioController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('crear-laboratorio'))
+        {
+            return redirect()->route('laboratorio.index');
+        } 
         return view('laboratorio.insert');
     }
 
@@ -69,6 +75,10 @@ class LaboratorioController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-laboratorio'))
+        {
+            return redirect()->route('laboratorio.index');
+        } 
         $laboratorio = App\Laboratorio::findorfail($id);
         return view('laboratorio.edit', compact('laboratorio'));
     }
@@ -103,10 +113,15 @@ class LaboratorioController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-laboratorio'))
+        {
+            return redirect()->route('laboratorio.index');
+        } 
         $laboratorio = App\Laboratorio::findorfail($id);
 
         $laboratorio->delete();
 
+        
         return redirect()->route('laboratorio.index')
                          ->with('exito','Laboratorio eliminado correctamente!');
     }

@@ -25,6 +25,89 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('administrar-usuarios', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('editar-usuario', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('eliminar-usuario', function($user) {
+            return $user->hasRol('admin');
+        });
+
+        Gate::define('registrar-medico', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('eliminar-medico', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('editar-medico', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('crear-laboratorio', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('editar-laboratorio', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('eliminar-laboratorio', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('crear-consulta', function($user) {
+            return $user->hasRol(['medico']);
+        });
+        Gate::define('editar-consulta', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('eliminar-consulta', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('crear-hospital', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('editar-hospital', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('eliminar-hospital', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('eliminar-sala', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('crear-sala', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('editar-sala', function($user) {
+            return $user->hasRol(['admin']);
+        });
+
+        Gate::define('registrar-paciente', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('diagnostico-paciente', function($user) {
+          return $user->hasRol(['medico']);
+        });
+        Gate::define('editar-paciente', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('editar-diagnostico', function($user) {
+            return $user->hasRol(['medico']);
+        });
+        Gate::define('eliminar-paciente', function($user) {
+            return $user->hasRol(['admin']);
+        });
+        Gate::define('crear-diagnostico', function($user) {
+            return $user->hasRol(['medico']);
+        });
+        Gate::define('eliminar-diagnostico', function($user) {
+            return $user->hasRol(['medico']);
+        });
+        
     }
 }

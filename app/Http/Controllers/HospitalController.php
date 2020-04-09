@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rol;
+use Gate;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class HospitalController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('crear-hospital'))
+        {
+            return redirect()->route('hospital.index');
+        }  
         return view('hospital.insert');
     }
     /**
@@ -70,6 +76,11 @@ class HospitalController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-hospital'))
+        {
+            return redirect()->route('hospital.index');
+        }  
+        return view('hospital.insert');
         $hospital = App\Hospital::findorfail($id);
         return view('hospital.edit', compact('hospital'));
     }
@@ -105,6 +116,11 @@ class HospitalController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-hospital'))
+        {
+            return redirect()->route('hospital.index');
+        }  
+        return view('hospital.insert');
         $hospital = App\Hospital::findorfail($id);
 
         $hospital->delete();

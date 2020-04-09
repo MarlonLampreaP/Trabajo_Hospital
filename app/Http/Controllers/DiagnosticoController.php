@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rol;
+use Gate;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class DiagnosticoController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('crear-diagnostico'))
+        {
+            return redirect()->route('diagnostico.index');
+        } 
         return view('diagnostico.insert');    }
 
     /**
@@ -69,6 +75,10 @@ class DiagnosticoController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-diagnostico'))
+        {
+            return redirect()->route('paciente.index');
+        } 
         $diagnostico = App\Diagnostico::findorfail($id);
         return view('diagnostico.edit', compact('diagnostico'));
     }
@@ -102,6 +112,10 @@ class DiagnosticoController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-diagnostico'))
+        {
+            return redirect()->route('paciente.index');
+        } 
         $diagnostico = App\Diagnostico::findorfail($id);
 
         $diagnostico->delete();

@@ -47,5 +47,5 @@
 <div class="row">
     <a href="{{route('paciente.create')}}"><button class="btn btn-success">Registrar Paciente</button></a>
     <a href="{{route('diagnostico.index')}}"><button class="btn btn-success">Diagnostico Paciente</button></a>
-    <a href="{{route('home')}}"><button class="btn btn-primary">Volver</button></a>
+    <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

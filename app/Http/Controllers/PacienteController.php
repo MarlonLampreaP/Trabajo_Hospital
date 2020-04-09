@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rol;
+use Gate;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class PacienteController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('registrar-paciente'))
+        {
+            return redirect()->route('paciente.index');
+        } 
         return view('paciente.insert');
     }
 
@@ -69,6 +75,10 @@ class PacienteController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-paciente'))
+        {
+            return redirect()->route('paciente.index');
+        } 
         $paciente = App\Paciente::findorfail($id);
         return view('paciente.edit', compact('paciente'));
     }
@@ -102,6 +112,10 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-paciente'))
+        {
+            return redirect()->route('paciente.index');
+        } 
         $paciente = App\Paciente::findorfail($id);
 
         $paciente->delete();

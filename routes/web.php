@@ -20,10 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('Admin/users','Admin\UserController');
+Route::resource('Admin/users','Admin\UserController')->middleware('can:administrar-usuarios');
 Route::resource('consulta','ConsultaController');
 Route::resource('detalleh','DetallehController');
-Route::resource('diagnostico','DiagnosticoController');
+Route::resource('diagnostico','DiagnosticoController')->middleware('can:diagnostico-paciente');
 Route::resource('fechadiagnostico','FechadiagnosticoController');
 Route::resource('hospital','HospitalController');
 Route::resource('laboratorio','LaboratorioController');

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rol;
+use Gate;
 use App;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,10 @@ class ConsultaController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('crear-consulta'))
+        {
+            return redirect()->route('consulta.index');
+        }    
         $pacientes = App\Paciente::orderby('nombre','asc')->get();
         $medicos = App\Medico::orderby('nombrem','asc')->get();
         return view('consulta.insert', compact('pacientes','medicos'));
@@ -71,6 +77,10 @@ class ConsultaController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('editar-consulta'))
+        {
+            return redirect()->route('consulta.index');
+        }    
         $consulta = App\Consulta::findorfail($id);
         return view('consulta.edit', compact('consulta'));
     }
@@ -104,6 +114,10 @@ class ConsultaController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('eliminar-consulta'))
+        {
+            return redirect()->route('consulta.index');
+        }    
         $consulta = App\Consulta::findorfail($id);
 
         $consulta->delete();

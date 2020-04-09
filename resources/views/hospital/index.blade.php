@@ -42,6 +42,6 @@
 <div class="row">
     <a href="{{route('hospital.create')}}"><button class="btn btn-success">Crear Hospital</button></a>
     <a href="{{route('sala.index')}}"><button class="btn btn-success">Salas</button></a>
-    <a href="{{route('home')}}"><button class="btn btn-primary">Volver</button></a>
+    <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a>
 </div>
 @endsection
