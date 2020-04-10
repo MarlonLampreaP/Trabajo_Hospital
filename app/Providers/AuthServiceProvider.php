@@ -108,6 +108,23 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('eliminar-diagnostico', function($user) {
             return $user->hasRol(['medico']);
         });
-        
+        Gate::define('hospital-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
+        Gate::define('consulta-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
+        Gate::define('medico-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
+        Gate::define('paciente-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
+        Gate::define('laboratorio-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
+        Gate::define('sala-entrada', function($user) {
+            return $user->hasAnyRol(['admin','medico','paciente']);
+        });
     }
 }

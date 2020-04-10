@@ -21,12 +21,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('Admin/users','Admin\UserController')->middleware('can:administrar-usuarios');
-Route::resource('consulta','ConsultaController');
+Route::resource('consulta','ConsultaController')->middleware('can:consulta-entrada');
 Route::resource('detalleh','DetallehController');
 Route::resource('diagnostico','DiagnosticoController')->middleware('can:diagnostico-paciente');
 Route::resource('fechadiagnostico','FechadiagnosticoController');
-Route::resource('hospital','HospitalController');
-Route::resource('laboratorio','LaboratorioController');
-Route::resource('medico','MedicoController');
-Route::resource('paciente','PacienteController');
-Route::resource('sala','SalaController');
+Route::resource('hospital','HospitalController')->middleware('can:hospital-entrada');
+Route::resource('laboratorio','LaboratorioController')->middleware('can:laboratorio-entrada');
+Route::resource('medico','MedicoController')->middleware('can:medico-entrada');
+Route::resource('paciente','PacienteController')->middleware('can:paciente-entrada');
+Route::resource('sala','SalaController')->middleware('can:sala-entrada');
