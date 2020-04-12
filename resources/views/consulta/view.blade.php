@@ -20,7 +20,7 @@
             <h3>Id Medico:</h3>
         </div>
             <div class="col-sm-3">
-                <p class="lead">{{$consulta->idMedico}}</p>
+                <p class="lead">{{$consulta->medico}}</p>
             </div>
     </div>
     <div class="row">
@@ -28,7 +28,7 @@
             <h3>Id Paciente:</h3>
         </div>
             <div class="col-sm-3">
-                <p class="lead">{{$consulta->idPaciente}}</p>
+                <p class="lead">{{$consulta->pacientes}}</p>
             </div>
     </div>
     <br><br>

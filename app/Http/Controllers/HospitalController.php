@@ -80,7 +80,6 @@ class HospitalController extends Controller
         {
             return redirect()->route('hospital.index');
         }  
-        return view('hospital.insert');
         $hospital = App\Hospital::findorfail($id);
         return view('hospital.edit', compact('hospital'));
     }
@@ -120,7 +119,6 @@ class HospitalController extends Controller
         {
             return redirect()->route('hospital.index');
         }  
-        return view('hospital.insert');
         $hospital = App\Hospital::findorfail($id);
 
         $hospital->delete();

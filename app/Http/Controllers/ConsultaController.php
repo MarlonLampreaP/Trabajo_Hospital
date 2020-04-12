@@ -65,8 +65,12 @@ class ConsultaController extends Controller
      */
     public function show($id)
     {
-        $consulta = App\Consulta::findorfail($id); 
-        return view('consulta.view', compact('consulta',));
+        $consulta = App\Consulta::join('pacientes', 'consultas.idPaciente', 'pacientes.id')
+        ->join('medicos', 'consultas.idMedico', 'medicos.id')
+        ->select('consultas.*', 'pacientes.nombre as pacientes', 'medicos.nombrem as medico')
+                            ->where('consultas.id', $id)
+                            ->first();
+        return view('consulta.view', compact('consulta'));
     }
 
     /**
