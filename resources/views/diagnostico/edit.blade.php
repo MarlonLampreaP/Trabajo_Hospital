@@ -22,7 +22,12 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Tipo:</label>
-                <input type="text" class="form-control" name="tipo" value="{{$diagnostico->tipo}}">
+                <select name="tipo" class="form-control">
+                    <option value="Enfermedad">Enfermedad</option>
+                    <option value="Lesion">Lesion</option>
+                    <option value="Fractura">Fractura</option>
+                    <option value="Infeccion">Infeccion</option>
+                </select>
             </div>
         </div>
         <div class="form-row">

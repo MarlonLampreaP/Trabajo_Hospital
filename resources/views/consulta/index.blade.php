@@ -16,7 +16,6 @@
     <table class="table table-bordered">
         <thead>
                 <th>Fecha Consulta</th>
-                <th>id Medico</th>
                 <th>id Paciente</th>
                 <th>Opciones</th>
         </thead>
@@ -24,7 +23,6 @@
             @foreach ($consultas as $consulta)
                 <tr>
                     <td>{{$consulta->fechac}}</td>
-                    <td>{{$consulta->idMedico}}</td>
                     <td>{{$consulta->idPaciente}}</td>
                     <td>
                     <form action="{{route('consulta.destroy',$consulta->id)}}" method="post">

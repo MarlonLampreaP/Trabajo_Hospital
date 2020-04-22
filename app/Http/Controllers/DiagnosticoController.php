@@ -31,7 +31,9 @@ class DiagnosticoController extends Controller
         {
             return redirect()->route('diagnostico.index');
         } 
-        return view('diagnostico.insert');    }
+        $diagnosticos = App\Diagnostico::orderby('tipo','asc')->get();
+        return view('diagnostico.insert',compact('diagnosticos'));  
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -79,8 +81,9 @@ class DiagnosticoController extends Controller
         {
             return redirect()->route('paciente.index');
         } 
+        $diagnosticos = App\Diagnostico::orderby('tipo','asc')->get();
         $diagnostico = App\Diagnostico::findorfail($id);
-        return view('diagnostico.edit', compact('diagnostico'));
+        return view('diagnostico.edit', compact('diagnostico','diagnosticos'));
     }
 
     /**
