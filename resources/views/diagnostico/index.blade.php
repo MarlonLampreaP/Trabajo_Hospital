@@ -27,10 +27,14 @@
                     <td>
                     <form action="{{route('diagnostico.destroy',$diagnostico->id)}}" method="post">
                     <a href="{{route('diagnostico.show',$diagnostico->id)}}" class="btn btn-info">Ver</a>
+                    @can('editar-diagnostico')
                     <a href="{{route('diagnostico.edit',$diagnostico->id)}}" class="btn btn-primary">Editar</a>
+                    @endcan
                 @csrf
                 @method('DELETE')
+                @can('eliminar-diagnostico')
                 <button type="submit" class="btn btn-danger">Eliminar</button>
+                @endcan
                 </form>
                 </tr>
             @endforeach
@@ -38,7 +42,9 @@
     </table>
     <br><br>
 <div class="row">
+    @can('crear-diagnostico')
     <a href="{{route('diagnostico.create')}}"><button class="btn btn-success">Crear Diagnostico</button></a>
+    @endcan
     <a href="{{route('paciente.index')}}"><button class="btn btn-primary">Volver</button></a>
 </div>
 @endsection

@@ -25,10 +25,14 @@
                     <td>
                     <form action="{{route('laboratorio.destroy',$laboratorio->id)}}" method="post">
                     <a href="{{route('laboratorio.show',$laboratorio->id)}}" class="btn btn-info">Ver</a>
+                    @can('editar-laboratorio')
                     <a href="{{route('laboratorio.edit',$laboratorio->id)}}" class="btn btn-primary">Editar</a>
+                    @endcan
                 @csrf
                 @method('DELETE')
+                @can('eliminar-laboratorio')
                 <button type="submit" class="btn btn-danger">Eliminar</button>
+                @endcan
                 </form>
                 </tr>
             @endforeach
@@ -36,7 +40,9 @@
     </table>
     <br><br>
 <div class="row">
+    @can('crear-laboratorio')
     <a href="{{route('laboratorio.create')}}"><button class="btn btn-success">Crear Laboratorio</button></a>
+    @endcan
     <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a>
 </div>
 @endsection
