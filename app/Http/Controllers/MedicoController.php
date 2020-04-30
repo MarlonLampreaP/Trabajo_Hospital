@@ -64,8 +64,9 @@ class MedicoController extends Controller
      */
     public function show($id)
     {
+        $hospital = App\Hospital::findorfail($id);
         $medico = App\Medico::findorfail($id);
-        return view('medico.view', compact('medico'));
+        return view('medico.view', compact('medico','hospital'));
     }
 
     /**
